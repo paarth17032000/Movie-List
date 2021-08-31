@@ -22,7 +22,7 @@ const Genre = mongoose.model('Genre', genreSchema)
 function ValidateGnere(genre){
     const schema = Joi.object({
         genre: Joi.string().min(2).required(),
-        actors: Joi.array().required(),
+        actors: Joi.string().required(),
         rating: Joi.number().min(0).max(5).required(),
         movie: Joi.string().min(2).required()
     })

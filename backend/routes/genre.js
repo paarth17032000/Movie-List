@@ -9,9 +9,9 @@ router.get('/', async(req, res) => {
 
 router.post('/', async(req, res) => {
     const result = validate(req.body)
-    // console.log(result)
+    console.log(req.body)
 
-    if(result.error) res.status(400).send(result.error.details[0].message)
+    if(result.error) return res.status(401).send(result.error.details[0].message)
 
     let genre = new Genre({
         genre: req.body.genre,
@@ -27,7 +27,9 @@ router.post('/', async(req, res) => {
 router.delete('/:genre_id', async(req, res) => {
     const genre = await Genre.findByIdAndRemove(req.body.genre_id)
 
-    if(!genre) res.status(404).send('Genre not found')
+    if(!genre) {
+        return res.status(404).send('Genre not found')
+    }
 
     res.send(genre)
 })
